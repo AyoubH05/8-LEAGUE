@@ -4,8 +4,328 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الدوري الإلكتروني - دوري كرة القدم الإلكتروني</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --text-color: #ffffff;
+            --accent-gold: #d4af37;
+            --accent-gold-light: #f1e5b9;
+            --card-bg: #151515;
+            --border-color: #333;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.05) 5%, transparent 15%),
+                radial-gradient(circle at 75% 75%, rgba(212, 175, 55, 0.05) 5%, transparent 15%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 95%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, #000000, #1a1a1a);
+            padding: 1rem 0;
+            border-bottom: 2px solid var(--accent-gold);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .header-content {
+            width: 95%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--accent-gold);
+            font-size: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            background: linear-gradient(to right, #d4af37, #f1e5b9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+        
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-gold-light);
+            font-size: 0.9rem;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .section {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+        }
+        
+        .section-title {
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            font-size: 1.2rem;
+        }
+        
+        .standings {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .standings th {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 2px solid var(--accent-gold);
+        }
+        
+        .standings td {
+            padding: 12px 15px;
+            text-align: right;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .standings tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.03);
+        }
+        
+        .standings tr:hover {
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+        
+        .standings tr:first-child {
+            background-color: rgba(212, 175, 55, 0.15);
+            font-weight: bold;
+        }
+        
+        .standings .pos {
+            text-align: center;
+            font-weight: bold;
+            color: var(--accent-gold-light);
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .generate-matches {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .matches-counter {
+            color: var(--accent-gold-light);
+            font-size: 0.9rem;
+        }
+        
+        #matches-count {
+            font-weight: bold;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #d4af37, #b8941f);
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(to right, #e0bf51, #c9a42e);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        
+        .matches-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .match-item {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .match-item:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+        
+        .match-teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .team-name {
+            font-weight: bold;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .team-name.english {
+            font-family: Arial, sans-serif;
+            font-size: 0.9rem;
+            color: var(--accent-gold-light);
+        }
+        
+        .vs {
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+        
+        .match-result {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        
+        .score-input {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 6px;
+        }
+        
+        .score-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+        }
+        
+        .match-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .icon-btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .icon-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+        
+        .no-matches {
+            text-align: center;
+            color: var(--accent-gold-light);
+            padding: 20px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
+            color: var(--accent-gold-light);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -53,7 +373,7 @@
             <section class="section">
                 <h2 class="section-title">
                     <i class="fas fa-random"></i>
-                    مباريات هذا الأسبوع (توليد عشوائي)
+                    مباريات هذا الأسبوع
                 </h2>
                 <div class="generate-matches">
                     <button id="generate-btn" class="btn">
@@ -66,7 +386,10 @@
                 </div>
                 
                 <div class="matches-list" id="matches-list">
-                    <!-- سيتم ملؤها بواسطة الجافاسكريبت -->
+                    <div class="no-matches">
+                        <i class="fas fa-futbol" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                        <p>لا توجد مباريات، انقر على "توليد مباريات جديدة" لبدء الدوري</p>
+                    </div>
                 </div>
             </section>
         </div>
@@ -76,6 +399,215 @@
         <p>© 2023 الدوري الإلكتروني. جميع الحقوق محفوظة.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // قائمة الفرق (العربية والإنجليزية)
+        const teams = [
+            { ar: "تشيلسي", en: "Chelsea" },
+            { ar: "أرسنال", en: "Arsenal" },
+            { ar: "مانشستر سيتي", en: "Man City" },
+            { ar: "ليفربول", en: "Liverpool" },
+            { ar: "توتنهام", en: "Tottenham" },
+            { ar: "أستون فيلا", en: "Aston Villa" },
+            { ar: "مانشستر يونايتد", en: "Man United" },
+            { ar: "نيوكاسل", en: "Newcastle" }
+        ];
+
+        // بيانات الترتيب الأولية
+        let standings = [
+            { team: "تشيلسي", played: 3, won: 3, drawn: 0, lost: 0, goalsFor: 8, goalsAgainst: 2, points: 9 },
+            { team: "أرسنال", played: 3, won: 2, drawn: 1, lost: 0, goalsFor: 6, goalsAgainst: 3, points: 7 },
+            { team: "مانشستر سيتي", played: 3, won: 2, drawn: 1, lost: 0, goalsFor: 7, goalsAgainst: 5, points: 7 },
+            { team: "ليفربول", played: 3, won: 2, drawn: 0, lost: 1, goalsFor: 6, goalsAgainst: 4, points: 6 },
+            { team: "توتنهام", played: 3, won: 1, drawn: 2, lost: 0, goalsFor: 5, goalsAgainst: 4, points: 5 },
+            { team: "أستون فيلا", played: 3, won: 1, drawn: 1, lost: 1, goalsFor: 4, goalsAgainst: 4, points: 4 },
+            { team: "مانشستر يونايتد", played: 3, won: 1, drawn: 0, lost: 2, goalsFor: 3, goalsAgainst: 5, points: 3 },
+            { team: "نيوكاسل", played: 3, won: 0, drawn: 1, lost: 2, goalsFor: 2, goalsAgainst: 6, points: 1 }
+        ];
+
+        // مصفوفة لتخزين المباريات
+        let matches = [];
+        let matchesCount = 0;
+
+        // دالة لملء جدول الترتيب
+        function populateStandings() {
+            const standingsBody = document.getElementById('standings-body');
+            standingsBody.innerHTML = '';
+            
+            // ترتيب الفرق حسب النقاط
+            const sortedStandings = [...standings].sort((a, b) => b.points - a.points);
+            
+            sortedStandings.forEach((teamData, index) => {
+                const row = document.createElement('tr');
+                
+                row.innerHTML = `
+                    <td class="pos">${index + 1}</td>
+                    <td>${teamData.team}</td>
+                    <td>${teamData.played}</td>
+                    <td>${teamData.won}</td>
+                    <td>${teamData.drawn}</td>
+                    <td>${teamData.lost}</td>
+                    <td>${teamData.goalsFor}</td>
+                    <td>${teamData.goalsAgainst}</td>
+                    <td>${teamData.points}</td>
+                `;
+                
+                standingsBody.appendChild(row);
+            });
+        }
+
+        // دالة لتوليد مباريات عشوائية
+        function generateRandomMatches() {
+            matches = []; // إعادة تعيين المباريات
+            
+            // إنشاء نسخة من قائمة الفرق لتجنب التكرار
+            const availableTeams = [...teams];
+            
+            // خلط الفرق عشوائيًا
+            for (let i = availableTeams.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [availableTeams[i], availableTeams[j]] = [availableTeams[j], availableTeams[i]];
+            }
+            
+            // إنشاء 4 مباريات (8 فرق مقسمة إلى 4 مباريات)
+            for (let i = 0; i < availableTeams.length; i += 2) {
+                const team1 = availableTeams[i];
+                const team2 = availableTeams[i + 1];
+                
+                // تأكد من وجود فريقين مختلفين
+                if (team1 && team2 && team1 !== team2) {
+                    matches.push({
+                        team1: team1,
+                        team2: team2,
+                        score1: null,
+                        score2: null
+                    });
+                }
+            }
+            
+            matchesCount = matches.length;
+            updateMatchesCount();
+            displayMatches();
+        }
+
+        // دالة لعرض المباريات
+        function displayMatches() {
+            const matchesList = document.getElementById('matches-list');
+            
+            if (matches.length === 0) {
+                matchesList.innerHTML = `
+                    <div class="no-matches">
+                        <i class="fas fa-futbol" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                        <p>لا توجد مباريات، انقر على "توليد مباريات جديدة" لبدء الدوري</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            matchesList.innerHTML = '';
+            
+            matches.forEach((match, index) => {
+                const matchItem = document.createElement('div');
+                matchItem.className = 'match-item';
+                
+                matchItem.innerHTML = `
+                    <div class="match-teams">
+                        <div class="team-name">${match.team1.ar}</div>
+                        <div class="vs">VS</div>
+                        <div class="team-name">${match.team2.ar}</div>
+                    </div>
+                    <div class="match-teams">
+                        <div class="team-name english">${match.team1.en}</div>
+                        <div class="team-name english">${match.team2.en}</div>
+                    </div>
+                    <div class="match-result">
+                        <input type="number" class="score-input" id="score1-${index}" min="0" value="${match.score1 !== null ? match.score1 : ''}" placeholder="0">
+                        <span class="vs">-</span>
+                        <input type="number" class="score-input" id="score2-${index}" min="0" value="${match.score2 !== null ? match.score2 : ''}" placeholder="0">
+                    </div>
+                    <div class="match-actions">
+                        <button class="icon-btn" onclick="addResult(${index})">
+                            <i class="fas fa-futbol"></i>
+                            إضافة النتيجة
+                        </button>
+                    </div>
+                `;
+                
+                matchesList.appendChild(matchItem);
+            });
+        }
+
+        // دالة لتحديث عداد المباريات
+        function updateMatchesCount() {
+            document.getElementById('matches-count').textContent = matchesCount;
+        }
+
+        // دالة لإضافة نتيجة مباراة
+        function addResult(index) {
+            const score1Input = document.getElementById(`score1-${index}`);
+            const score2Input = document.getElementById(`score2-${index}`);
+            
+            const score1 = parseInt(score1Input.value);
+            const score2 = parseInt(score2Input.value);
+            
+            if (isNaN(score1) || isNaN(score2)) {
+                alert("يرجى إدخال نتيجة صحيحة للمباراة");
+                return;
+            }
+            
+            const match = matches[index];
+            match.score1 = score1;
+            match.score2 = score2;
+            
+            // تحديث جدول الترتيب
+            updateStandings(match.team1.ar, match.team2.ar, score1, score2);
+            
+            alert(`تم إضافة نتيجة المباراة: ${match.team1.ar} ${score1} - ${score2} ${match.team2.ar}`);
+        }
+
+        // دالة لتحديث جدول الترتيب بناءً على النتيجة
+        function updateStandings(team1, team2, score1, score2) {
+            const team1Data = standings.find(t => t.team === team1);
+            const team2Data = standings.find(t => t.team === team2);
+            
+            if (team1Data && team2Data) {
+                // تحديث عدد المباريات
+                team1Data.played++;
+                team2Data.played++;
+                
+                // تحديث الأهداف
+                team1Data.goalsFor += score1;
+                team1Data.goalsAgainst += score2;
+                team2Data.goalsFor += score2;
+                team2Data.goalsAgainst += score1;
+                
+                // تحديد النتيجة وتحديث النقاط
+                if (score1 > score2) {
+                    team1Data.won++;
+                    team2Data.lost++;
+                    team1Data.points += 3;
+                } else if (score1 < score2) {
+                    team1Data.lost++;
+                    team2Data.won++;
+                    team2Data.points += 3;
+                } else {
+                    team1Data.drawn++;
+                    team2Data.drawn++;
+                    team1Data.points += 1;
+                    team2Data.points += 1;
+                }
+                
+                // إعادة ترتيب وعرض الجدول
+                populateStandings();
+            }
+        }
+
+        // تهيئة الصفحة عند التحميل
+        document.addEventListener('DOMContentLoaded', function() {
+            populateStandings();
+            
+            // إضافة event listener لزر التوليد
+            document.getElementById('generate-btn').addEventListener('click', generateRandomMatches);
+        });
+    </script>
 </body>
 </html>
