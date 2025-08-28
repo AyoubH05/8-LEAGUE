@@ -25,6 +25,7 @@ body {
     min-height: 100vh;
 }
 
+/* Layout */
 .container {
     width: 95%;
     max-width: 1400px;
@@ -35,6 +36,7 @@ body {
     gap: 20px;
 }
 
+/* Header */
 header {
     background: linear-gradient(to right, #000000, #1a1a1a);
     padding: 1rem 0;
@@ -78,6 +80,7 @@ header {
     font-size: 0.9rem;
 }
 
+/* Sections */
 .main-content {
     display: grid;
     grid-template-columns: 1fr;
@@ -118,9 +121,13 @@ header {
     font-size: 1.2rem;
 }
 
+/* Standings table */
 .standings {
     width: 100%;
     border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .standings th {
@@ -129,12 +136,19 @@ header {
     padding: 12px 15px;
     text-align: right;
     border-bottom: 2px solid var(--accent-gold);
+    border-right: 1px solid var(--border-color);
 }
 
 .standings td {
     padding: 12px 15px;
     text-align: right;
     border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+}
+
+.standings td:last-child,
+.standings th:last-child {
+    border-right: none;
 }
 
 .standings tr:nth-child(even) {
@@ -156,6 +170,7 @@ header {
     color: var(--accent-gold-light);
 }
 
+/* Sidebar */
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -181,6 +196,7 @@ header {
     font-size: 1.2rem;
 }
 
+/* Buttons */
 .btn {
     background: linear-gradient(to right, #d4af37, #b8941f);
     color: #000;
@@ -201,6 +217,7 @@ header {
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
+/* Matches */
 .matches-list {
     display: flex;
     flex-direction: column;
@@ -215,12 +232,13 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.3s;
+    transition: transform 0.2s ease, box-shadow 0.3s;
 }
 
 .match-item:hover {
     border-color: var(--accent-gold);
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    transform: translateY(-3px);
 }
 
 .match-teams {
@@ -239,6 +257,9 @@ header {
     font-weight: bold;
     color: var(--accent-gold);
     margin: 0 10px;
+    background-color: rgba(212, 175, 55, 0.1);
+    padding: 5px 10px;
+    border-radius: 6px;
 }
 
 .match-actions {
@@ -265,15 +286,17 @@ header {
     color: var(--accent-gold);
 }
 
+/* Footer */
 footer {
     margin-top: 40px;
     text-align: center;
     padding: 20px;
     color: var(--accent-gold-light);
     font-size: 0.9rem;
-    border-top: 1px solid var(--border-color);
+    border-top: 2px solid var(--accent-gold);
 }
 
+/* Responsive */
 @media (max-width: 992px) {
     .container {
         grid-template-columns: 1fr;
