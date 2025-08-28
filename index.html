@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدوري الإلكتروني - دوري كرة القدم الإلكتروني</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-futbol"></i>
+                <h1>الدوري الإلكتروني</h1>
+            </div>
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Fullering</span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="main-content">
+            <section class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-trophy"></i>
+                    ترتيب الفرق - المجموعة 1
+                </h2>
+                <table class="standings">
+                    <thead>
+                        <tr>
+                            <th width="50">#</th>
+                            <th>الفريق</th>
+                            <th>ل</th>
+                            <th>ف</th>
+                            <th>ت</th>
+                            <th>خ</th>
+                            <th>له</th>
+                            <th>عليه</th>
+                            <th>ن</th>
+                        </tr>
+                    </thead>
+                    <tbody id="standings-body">
+                        <!-- سيتم ملؤها بواسطة الجافاسكريبت -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        
+        <div class="sidebar">
+            <section class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-random"></i>
+                    مباريات هذا الأسبوع (توليد عشوائي)
+                </h2>
+                <div class="generate-matches">
+                    <button id="generate-btn" class="btn">
+                        <i class="fas fa-random"></i>
+                        توليد مباريات جديدة
+                    </button>
+                    <div class="matches-counter">
+                        تم إنشاء <span id="matches-count">0</span> مباراة
+                    </div>
+                </div>
+                
+                <div class="matches-list" id="matches-list">
+                    <!-- سيتم ملؤها بواسطة الجافاسكريبت -->
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 الدوري الإلكتروني. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
