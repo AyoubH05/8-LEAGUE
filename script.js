@@ -15,7 +15,6 @@ let standings = [
 ];
 
 let matches = [];
-let matchesCount = 0;
 
 function populateStandings() {
     const standingsBody = document.getElementById('standings-body');
@@ -47,8 +46,10 @@ function populateStandings() {
 }
 
 function generateRandomMatches() {
-    matches = [];
+    matches = []; // إعادة تعيين المباريات
+
     const availableTeams = [...teams];
+
     for (let i = availableTeams.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [availableTeams[i], availableTeams[j]] = [availableTeams[j], availableTeams[i]];
@@ -58,34 +59,27 @@ function generateRandomMatches() {
         const team1 = availableTeams[i];
         const team2 = availableTeams[i + 1];
         if (team1 && team2 && team1 !== team2) {
-            const matchDate = new Date();
-            matchDate.setDate(matchDate.getDate() + matches.length * 7);
-            matches.push({ team1, team2, date: matchDate, score1: null, score2: null });
+            matches.push({ team1, team2, score1: null, score2: null });
         }
     }
 
-    matchesCount = matches.length;
     updateMatchesCount();
     displayMatches();
-    updateRound();
 }
 
 function displayMatches() {
     const matchesList = document.getElementById('matches-list');
     matchesList.innerHTML = '';
 
-    matches.forEach(match => {
+    matches.forEach((match, index) => {
         const matchItem = document.createElement('div');
         matchItem.className = 'match-item';
 
-        const dateStr = match.date.toLocaleDateString('ar-EG', { day: 'numeric', month: 'long', year: 'numeric' });
-
         matchItem.innerHTML = `
             <div class="match-teams">
-                <div>${match.team1} vs ${match.team2}</div>
-                <div class="match-date">${dateStr}</div>
+                <div>#${index + 1} - ${match.team1} vs ${match.team2}</div>
             </div>
-            <div class="match-result">${match.score1 !== null ? `${match.score1} - ${match.score2}` : 'لم تلعب بعد'}</div>
+            <div class="match-result">${match.score1 !== null ? `${match.score1} - ${match.score2}` : 'لم تُسجل بعد'}</div>
             <div class="match-actions">
                 <button class="icon-btn" onclick="addResult('${match.team1}', '${match.team2}')" title="إضافة النتيجة">
                     <i class="fas fa-futbol"></i>
@@ -114,13 +108,11 @@ function addResult(team1, team2) {
     updateStandings(match.team1, match.team2, match.score1, match.score2);
     displayMatches();
     updateMatchesCount();
-    updateRound();
 }
 
 function updateStandings(team1, team2, score1, score2) {
     const t1 = standings.find(t => t.team === team1);
     const t2 = standings.find(t => t.team === team2);
-
     if (!t1 || !t2) return;
 
     t1.played++; t2.played++;
@@ -134,26 +126,9 @@ function updateStandings(team1, team2, score1, score2) {
     populateStandings();
 }
 
-function updateRound() {
-    const playedMatches = matches.filter(m => m.score1 !== null).length;
-    document.getElementById('current-round').textContent = Math.ceil((playedMatches / 4) + 1);
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     populateStandings();
     generateRandomMatches();
 
     document.getElementById('generate-btn').addEventListener('click', generateRandomMatches);
-    document.getElementById('simulate-btn').addEventListener('click', () => {
-        matches.forEach(match => {
-            if(match.score1 === null) {
-                match.score1 = Math.floor(Math.random() * 5);
-                match.score2 = Math.floor(Math.random() * 5);
-                updateStandings(match.team1, match.team2, match.score1, match.score2);
-            }
-        });
-        displayMatches();
-        updateMatchesCount();
-        updateRound();
-    });
 });
