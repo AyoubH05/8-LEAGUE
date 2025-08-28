@@ -4,8 +4,12 @@
     --text-color: #ffffff;
     --accent-gold: #d4af37;
     --accent-gold-light: #f1e5b9;
+    --accent-silver: #c0c0c0;
+    --accent-bronze: #cd7f32;
     --card-bg: #151515;
     --border-color: #333;
+    --success-color: #2ecc71;
+    --error-color: #e74c3c;
 }
 
 * {
@@ -118,9 +122,15 @@ header {
     font-size: 1.2rem;
 }
 
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+}
+
 .standings {
     width: 100%;
     border-collapse: collapse;
+    min-width: 600px;
 }
 
 .standings th {
@@ -150,10 +160,43 @@ header {
     font-weight: bold;
 }
 
+.standings tr:first-child td:first-child {
+    background-color: var(--accent-gold);
+    color: #000;
+    font-weight: bold;
+}
+
+.standings tr:nth-child(2) {
+    background-color: rgba(192, 192, 192, 0.1);
+}
+
+.standings tr:nth-child(2) td:first-child {
+    background-color: var(--accent-silver);
+    color: #000;
+    font-weight: bold;
+}
+
+.standings tr:nth-child(3) {
+    background-color: rgba(205, 127, 50, 0.1);
+}
+
+.standings tr:nth-child(3) td:first-child {
+    background-color: var(--accent-bronze);
+    color: #000;
+    font-weight: bold;
+}
+
 .standings .pos {
     text-align: center;
     font-weight: bold;
     color: var(--accent-gold-light);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .sidebar {
@@ -199,6 +242,11 @@ header {
 .btn:hover {
     background: linear-gradient(to right, #e0bf51, #c9a42e);
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: translateY(0);
 }
 
 .matches-list {
@@ -221,6 +269,7 @@ header {
 .match-item:hover {
     border-color: var(--accent-gold);
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    transform: translateY(-2px);
 }
 
 .match-teams {
@@ -250,19 +299,196 @@ header {
     background-color: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 8px 15px;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
 }
 
 .icon-btn:hover {
     border-color: var(--accent-gold);
     color: var(--accent-gold);
+    transform: translateY(-2px);
+}
+
+.no-matches {
+    text-align: center;
+    color: var(--accent-gold-light);
+    padding: 20px;
+}
+
+/* الإحصائيات */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.stat-card {
+    background-color: var(--secondary-bg);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent-gold);
+    margin: 10px 0;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--accent-gold-light);
+}
+
+/* الفعاليات القادمة */
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.event-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background-color: var(--secondary-bg);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.event-date {
+    background-color: var(--accent-gold);
+    color: #000;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    min-width: 70px;
+    text-align: center;
+}
+
+.event-desc {
+    flex-grow: 1;
+}
+
+/* النافذة المنبثقة */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    border: 1px solid var(--accent-gold);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: rgba(212, 175, 55, 0.1);
+}
+
+.modal-header h3 {
+    color: var(--accent-gold);
+    margin: 0;
+}
+
+.close {
+    color: var(--text-color);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: var(--accent-gold);
+}
+
+.modal-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.match-teams-modal {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.score-inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.score-input-modal {
+    width: 80px;
+    height: 60px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: var(--secondary-bg);
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 8px;
+}
+
+.score-input-modal:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* الإشعارات */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    background-color: var(--success-color);
+    color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.notification.error {
+    background-color: var(--error-color);
 }
 
 footer {
@@ -274,8 +500,51 @@ footer {
     border-top: 1px solid var(--border-color);
 }
 
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* تحسينات للجوال */
 @media (max-width: 992px) {
     .container {
         grid-template-columns: 1fr;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .match-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .match-actions {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .section {
+        padding: 15px;
+    }
+    
+    .modal-content {
+        width: 95%;
     }
 }
