@@ -21,6 +21,21 @@
     </header>
 
     <div class="container">
+        <!-- المباريات على اليسار -->
+        <aside class="sidebar">
+            <section class="section">
+                <div class="section-title"><i class="fas fa-calendar-alt"></i> المباريات</div>
+                <div class="generate-matches">
+                    <button id="generate-btn" class="btn">توليد المباريات</button>
+                </div>
+                <div class="matches-counter">
+                    المباريات: <span id="matches-count"></span>
+                </div>
+                <div class="matches-list" id="matches-list"></div>
+            </section>
+        </aside>
+
+        <!-- جدول الترتيب على اليمين -->
         <main class="main-content">
             <section class="section">
                 <div class="section-title"><i class="fas fa-list-ol"></i> جدول الترتيب</div>
@@ -44,21 +59,6 @@
                 </div>
             </section>
         </main>
-
-        <aside class="sidebar">
-            <section class="section">
-                <div class="section-title"><i class="fas fa-calendar-alt"></i> المباريات</div>
-                <div class="generate-matches">
-                    <button id="generate-btn" class="btn">توليد المباريات</button>
-                    <button id="simulate-btn" class="btn">توليد نتائج عشوائية</button>
-                </div>
-                <div class="matches-counter">
-                    الجولة الحالية: <span id="current-round">1</span>
-                    | المباريات المتبقية: <span id="matches-count"></span>
-                </div>
-                <div class="matches-list" id="matches-list"></div>
-            </section>
-        </aside>
     </div>
 
     <footer>
